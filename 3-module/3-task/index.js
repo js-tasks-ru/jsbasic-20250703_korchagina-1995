@@ -12,6 +12,3 @@ function camelize(str) {
 
 }
 
-
-camelize("background-color");
-

@@ -49,5 +49,3 @@ function highlight(table) {
     }
   }
 }
-
-highlight(table);
