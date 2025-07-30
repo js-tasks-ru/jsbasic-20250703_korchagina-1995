@@ -1,3 +1,5 @@
+@import url(/jsbasic-20250703_korchagina-1995/assets/styles/common.css);
+
 .carousel {
   height: var(--carousel-height);
   position: relative;
