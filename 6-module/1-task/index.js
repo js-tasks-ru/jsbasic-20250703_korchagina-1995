@@ -16,12 +16,19 @@
 export default class UserTable {
   constructor(rows) {
     this.rows = rows;
-    this.elem = this.renderTable();
+    this.elem = this.render();
   }
 
-  renderTable() {
-    const table = document.createElement('table');
+  onTableClick = (e) => {
+    const target = e.target;
 
+    if (target.tagName === 'BUTTON') {
+      target.closest('tr').remove();
+    }
+  }
+
+  getTableHtml() {
+    
     const thead = `
       <thead>
         <tr>
@@ -29,36 +36,35 @@ export default class UserTable {
           <th>Возраст</th>
           <th>Зарплата</th>
           <th>Город</th>
+          <th></th>
         </tr>
       </thead>
     `;
 
-    const tbodyRows = this.rows.map(row => `
-      <tr>
-        <td>${row.name}</td>
-        <td>${row.age}</td>
-        <td>${row.salary}</td>
-        <td>${row.city}</td>
-        <td><button>X</button></td>
-      </tr>
-    `).join('');
+    const tbody = `
+      <tbody>
+        ${this.rows.map(row => `
+          <tr>
+            <td>${row.name}</td>
+            <td>${row.age}</td>
+            <td>${row.salary}</td>
+            <td>${row.city}</td>
+            <td><button>X</button></td>
+          </tr>
+        `).join('')}
+      </tbody>
+    `;
 
-    const tbody = `<tbody>${tbodyRows}</tbody>`;
+    return thead + tbody;
+  }
 
-    table.innerHTML = thead + tbody;
-
-    table.addEventListener('click', (e) => {
-
-      const target = e.target;
-
-      if (target.tagName === 'BUTTON') {
-        target.closest('tr').remove();
-      }
-    });
-
+  render() {
+    const table = document.createElement('table');
+    table.innerHTML = this.getTableHtml();
+    table.addEventListener('click', this.onTableClick);
     return table;
   }
-  
+
 }
 
 
